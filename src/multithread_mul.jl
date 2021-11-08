@@ -6,7 +6,7 @@ abstract type ThreadingBackend end
 
 struct BaseThreads <: ThreadingBackend end
 
-function multithread_matmul((T::BaseThreads)
+function multithread_matmul(T::BaseThreads)
 
     @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
         return tmul!(y, A, x, alpha, beta)
@@ -25,7 +25,7 @@ end
 
 struct PolyesterThreads <: ThreadingBackend end
 
-function multithread_matmul((T::PolyesterThreads)
+function multithread_matmul(T::PolyesterThreads)
 
     @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
         return bmul!(y, A, x, alpha, beta)
