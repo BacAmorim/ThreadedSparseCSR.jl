@@ -66,5 +66,12 @@ ThreadedSparseCSR.multithread_matmul(BaseThreads())
 
 ThreadedSparseCSR.multithread_matmul(PolyesterThreads())
 @btime mul!($y1, $csrA, $x, true, false) # multithreaded version using Polyester.@batch
+
+
+# Change the number of threads:
+ThreadedSparseCSR.get_num_threads()
+ThreadedSparseCSR.set_num_threads(4)
+@btime mul!($y1, $csrA, $x, true, false) # multithreaded version using Polyester.@batch
+
 ```
 
