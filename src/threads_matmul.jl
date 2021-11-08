@@ -44,7 +44,7 @@ function tmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::
 
 end
 
-
+# sparse mat-vec multiplication
 function tmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
     
     tmul!(y, A, x, true, false)
@@ -56,5 +56,30 @@ function tmul(A::SparseMatrixCSR, x::AbstractVector)
     y = similar(x, promote_type(eltype(A), eltype(x)), size(A, 1))
 
     tmul!(y, A, x, true, false)
+
+end
+
+
+
+# function to overwrite * and mul!
+function multithread_matmul(T::BaseThreads)
+
+    @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
+        return tmul!(y, A, x, alpha, beta)
+    end
+
+    @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
+        return tmul!(y, A, x)
+    end
+
+    @eval function  *(A::SparseMatrixCSR, x::AbstractVector)
+        return tmul(A, x)
+    end
+
+end
+
+function  multithread_matmul()
+
+    multithread_matmul(BaseThreads())
 
 end

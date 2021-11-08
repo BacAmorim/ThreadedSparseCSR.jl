@@ -1,6 +1,7 @@
 # Multithreaded multiplication using Polyester.jl @batch
 using SparseMatricesCSR: nzrange
 
+# sparse mat-vec multiplication
 function bmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
     
     A.n == size(x, 1) || throw(DimensionMismatch())
@@ -35,5 +36,23 @@ function bmul(A::SparseMatrixCSR, x::AbstractVector)
     y = similar(x, promote_type(eltype(A), eltype(x)), size(A, 1))
     
     return bmul!(y, A, x, true, false)
+
+end
+
+
+# function to overwrite * and mul!
+function multithread_matmul(T::PolyesterThreads)
+
+    @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
+        return bmul!(y, A, x, alpha, beta)
+    end
+
+    @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
+        return bmul!(y, A, x)
+    end
+
+    @eval function  *(A::SparseMatrixCSR, x::AbstractVector)
+        return bmul(A, x)
+    end
 
 end
