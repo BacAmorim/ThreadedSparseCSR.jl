@@ -22,6 +22,13 @@ function multithread_matmul(T::BaseThreads)
 
 end
 
+function  multithread_matmul()
+
+    multithread_matmul(BaseThreads())
+
+end
+
+
 
 struct PolyesterThreads <: ThreadingBackend end
 
