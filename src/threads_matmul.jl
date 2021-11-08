@@ -54,29 +54,3 @@ function tmul(A::SparseMatrixCSR, x::AbstractVector)
     tmul!(y, A, x, true, false)
 
 end
-
-
-
-# function to overwrite * and mul!
-function multithread_matmul(T::BaseThreads)
-
-    @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
-        return tmul!(y, A, x, alpha, beta)
-    end
-
-    @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
-        return tmul!(y, A, x)
-    end
-
-    @eval function  *(A::SparseMatrixCSR, x::AbstractVector)
-        return tmul(A, x)
-    end
-
-end
-
-
-function  multithread_matmul()
-
-    multithread_matmul(DefaultThreadingBackend())
-
-end

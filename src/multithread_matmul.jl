@@ -1,11 +1,3 @@
-abstract type ThreadingBackend end
-struct BaseThreads <: ThreadingBackend end
-struct PolyesterThreads <: ThreadingBackend end
-
-DefaultThreadingBackend() = PolyesterThreads()
-
-
-
 # function to overwrite * and mul!
 
 ## with Base.threads
