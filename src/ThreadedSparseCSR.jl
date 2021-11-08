@@ -9,17 +9,16 @@ using SparseMatricesCSR: nzrange
 import Base: *
 import LinearAlgebra: mul! 
 
-abstract type ThreadingBackend end
-struct BaseThreads <: ThreadingBackend end
-struct PolyesterThreads <: ThreadingBackend end
-
-DefaultThreadingBackend() = PolyesterThreads()
-
-export BaseThreads, tmul!, tmul
-export PolyesterThreads, bmul!, bmul
 
 include("threads_matmul.jl")
+export tmul!, tmul
+
 include("batch_matmul.jl")
+export bmul!, bmul
+
+include("multithread_matmul.jl")
+export BaseThreads, PolyesterThreads
+
 include("set_num_threads.jl")
 
 end
