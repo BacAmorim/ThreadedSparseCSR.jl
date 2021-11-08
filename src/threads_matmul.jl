@@ -1,7 +1,3 @@
-# Multithreaded multiplication using Polyester.jl @batch
-using SparseMatricesCSR: nzrange
-
-
 # Multithreaded multiplication using Threads.@spawn (based on https://github.com/jagot/ThreadedSparseArrays.jl)
 
 ## * Threading utilities
@@ -78,8 +74,9 @@ function multithread_matmul(T::BaseThreads)
 
 end
 
+
 function  multithread_matmul()
 
-    multithread_matmul(BaseThreads())
+    multithread_matmul(DefaultThreadingBackend())
 
 end
