@@ -42,7 +42,7 @@ function bmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
 
 end
 
-function bmul(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
+function bmul(A::SparseMatrixCSR, x::AbstractVector)
 
     T = promote_type(eltype(A), eltype(x))
     y = similar(x, T)
