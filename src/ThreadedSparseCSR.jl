@@ -7,8 +7,9 @@ using Polyester
 
 export bmul!, bmul
 
-include("matmul.jl")
+include("batch_matmul.jl")
 include("multithread_mul.jl")
+include("set_num_threads.jl")
 
 
 end
