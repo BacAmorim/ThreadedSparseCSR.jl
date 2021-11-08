@@ -10,15 +10,18 @@ import Base: *
 import LinearAlgebra: mul! 
 
 
-include("threads_matmul.jl")
+abstract type ThreadingBackend end
+struct BaseThreads <: ThreadingBackend end
+struct PolyesterThreads <: ThreadingBackend end
+DefaultThreadingBackend() = PolyesterThreads()
+
 export tmul!, tmul
-
-include("batch_matmul.jl")
 export bmul!, bmul
-
-include("multithread_matmul.jl")
 export BaseThreads, PolyesterThreads
 
+include("threads_matmul.jl")
+include("batch_matmul.jl")
+include("multithread_matmul.jl")
 include("set_num_threads.jl")
 
 end
