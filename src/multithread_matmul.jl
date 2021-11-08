@@ -1,6 +1,16 @@
 # function to overwrite * and mul!
 
 ## with Base.threads
+"""
+    ThreadedSparseCSR.multithread_matmul()
+    ThreadedSparseCSR.multithread_matmul(PolyesterThreads())
+
+Overwrites `*` and `mul!` by their multithreaded versions, using Polyester.jl threading.
+
+    ThreadedSparseCSR.multithread_matmul(BaseThreads())
+
+Overwrites `*` and `mul!` by their multithreaded versions, using Threads.@spawn threading.   
+"""
 function multithread_matmul(T::BaseThreads)
 
     @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)

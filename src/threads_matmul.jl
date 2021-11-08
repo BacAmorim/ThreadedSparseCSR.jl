@@ -16,6 +16,13 @@ Base.length(it::RangeIterator) = it.k
 endpos(it::RangeIterator, i::Int) = i*it.d+min(i,it.r)
 Base.iterate(it::RangeIterator, i::Int=1) = i>it.k ? nothing : (endpos(it,i-1)+1:endpos(it,i), i+1)
 
+"""
+    tmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
+    tmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
+
+Evaluates `y = alpha*A*x + beta*y` (`y = A*x`)
+In-place multithreaded version of sparse csr matrix - vector multiplication, using the threading provided by Threads.@spawn
+"""
 function tmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
     
     A.n == size(x, 1) || throw(DimensionMismatch())
@@ -40,13 +47,18 @@ function tmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::
 
 end
 
-# sparse mat-vec multiplication
 function tmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
     
     tmul!(y, A, x, true, false)
 
 end
 
+"""
+    tmul(A::SparseMatrixCSR, x::AbstractVector)
+
+Evaluates `A*x`.
+Multithreaded version of sparse csr matrix - vector multiplication, using the threading provided by Threads.@spawn
+"""
 function tmul(A::SparseMatrixCSR, x::AbstractVector)
 
     y = similar(x, promote_type(eltype(A), eltype(x)), size(A, 1))
