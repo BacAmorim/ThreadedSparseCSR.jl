@@ -16,8 +16,8 @@ export tmul!, tmul
 include("batch_matmul.jl")
 export bmul!, bmul
 
-include("multithread_matmul.jl")
-export BaseThreads, PolyesterThreads
+#include("multithread_matmul.jl")
+#export BaseThreads, PolyesterThreads
 
 include("set_num_threads.jl")
 
