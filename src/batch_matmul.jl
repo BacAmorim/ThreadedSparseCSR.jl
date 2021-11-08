@@ -8,7 +8,7 @@ function bmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::
 
     o = getoffset(A)
     
-    @batch for row in 1:size(y, 1)
+    @batch minbatch = size(y, 1) ÷ matmul_num_threads[] for row in 1:size(y, 1)
         @inbounds begin
             accu = zero(eltype(y))
             for nz in nzrange(A, row)
@@ -32,8 +32,7 @@ end
 
 function bmul(A::SparseMatrixCSR, x::AbstractVector)
 
-    T = promote_type(eltype(A), eltype(x))
-    y = similar(x, T)
+    y = similar(x, promote_type(eltype(A), eltype(x)), size(A, 1))
     
     return bmul!(y, A, x, true, false)
 
