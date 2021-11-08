@@ -1,5 +1,6 @@
 module ThreadedSparseCSR
 
+using SparseArrays
 using SparseMatricesCSR
 using Polyester
 using LinearAlgebra

@@ -18,6 +18,9 @@ using Test
         y1 = rand(n)
         y2 = copy(n)
         @test bmul!(y1, csrA, x, 0.5, 0.3) == mul!(y2, cscA, x, 0.5, 0.3)
+
+        y1 = rand(n)
+        y2 = copy(n)
         @test bmul!(y1, csrA, x, 0.5, 0.3) == mul!(y2, csrA, x, 0.5, 0.3)
     end
 
@@ -25,6 +28,9 @@ using Test
         y1 = rand(n)
         y2 = copy(n)
         @test bmul!(y1, csrA, x) == mul!(y2, cscA, x)
+        
+        y1 = rand(n)
+        y2 = copy(n)
         @test bmul!(y1, csrA, x) == mul!(y2, csrA, x)
     end
 
