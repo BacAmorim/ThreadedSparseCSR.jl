@@ -7,6 +7,7 @@ using SparseMatricesCSR: nzrange
     bmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
 
 Evaluates `y = alpha*A*x + beta*y` (`y = A*x`)
+
 In-place multithreaded version of sparse csr matrix - vector multiplication, using the threading provided by Polyester.jl
 """
 function bmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
@@ -42,6 +43,7 @@ end
     bmul(A::SparseMatrixCSR, x::AbstractVector)
 
 Evaluates `A*x`.
+
 Multithreaded version of sparse csr matrix - vector multiplication, using the threading provided by Polyester.jl
 """
 function bmul(A::SparseMatrixCSR, x::AbstractVector)
