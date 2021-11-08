@@ -34,10 +34,10 @@ using Test
         @test bmul!(y1, csrA, x) ≈ SparseMatricesCSR.mul!(y2, csrA, x)
     end
 
-    @testset "2-arg mat-vec mul" begin
+   @testset "2-arg mat-vec mul" begin
         @test bmul(csrA, x) ≈ SparseArrays.:*(cscA, x)
-        @test bmul(csrA, x) ≈ SparseMatricesCSR.:*(csrA, x)
+        #@test bmul(csrA, x) ≈ SparseMatricesCSR.:*(csrA, x)
     end
-    =#
+
 
 end
