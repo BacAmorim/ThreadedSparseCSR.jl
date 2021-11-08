@@ -4,7 +4,17 @@ Provides a multithreaded version of sparse CSR matrix vector multiplication in J
 
 The CSR matrix format is implemented in the Julia package https://github.com/gridap/SparseMatricesCSR.jl
 
-This package exports the functions:
+# Instalation
+This package is not registered. To install it:
+```
+using Pkg
+Pkg.add("https://github.com/BacAmorim/ThreadedSparseCSR.jl")
+```
+
+# Functionality
+This packahe implements a multithreaded version of sparse matrix CSR - vector multiplication in Julia. 
+
+The package exports the functions:
 - `tmul!(y, A, x, [alpha], [beta])`, 5 argument (`y = alpha*A*x +beta*y `) and 3 argument (`y = A*x`) in-place multithreaded versions of `mul!`, using `Base.Threads` threading (using `@spawn`)
 - `tmul(A, x)`, multithreaded versions of `A*x`, using `Base.Threads` threading (using `@spawn`)
 - `bmul!(y, A, x, [alpha], [beta])`, 5 argument (`y = alpha*A*x +beta*y `) and 3 argument (`y = A*x`) in-place multithreaded versions of `mul!`, using https://github.com/JuliaSIMD/Polyester.jl threading (using `@batch`)
@@ -28,7 +38,7 @@ It is also possible to change the number of threads that are used, using the fun
 ```
 ThreadedSparseCSR.set_num_threads(4)
 ```
-The number of threads used is obtained via:
+The number of threads that is being used is obtained via:
 ```
 ThreadedSparseCSR.get_num_threads()
 ```
