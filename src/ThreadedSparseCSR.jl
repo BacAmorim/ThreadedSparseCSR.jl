@@ -4,7 +4,7 @@ using SparseMatricesCSR
 using Polyester
 using LinearAlgebra
 
-export csr_bmul!
+export bmul!, bmul
 #export csr_bmul
 
 #include("matmul.jl")
@@ -12,7 +12,7 @@ export csr_bmul!
 
 using SparseMatricesCSR: nzrange
 
-function csr_bmul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
+function bmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
     
     A.n == size(x, 1) || throw(DimensionMismatch())
     A.m == size(y, 1) || throw(DimensionMismatch())
@@ -35,15 +35,29 @@ function csr_bmul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector, alph
 
 end
 
+function bmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
+    
+    return bmul!(y, A, x, true, false)
+
+end
+
+function bmul(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
+
+    T = promote_type(eltype(A), eltype(x))
+    y = similar(x, T)
+    
+    return bmul!(y, A, x, true, false)
+
+end
+
 import LinearAlgebra: mul!
 
-@eval begin
+function multithread_matmul()
 
-    function  mul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
-        return csr_bmul!(y, A, x, alpha, beta)
+    @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
+        return bmul!(y, A, x, alpha, beta)
     end
 
-    
 end
 
 end
