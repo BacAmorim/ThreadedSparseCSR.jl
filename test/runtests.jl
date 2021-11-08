@@ -17,7 +17,7 @@ using Test
     @testset "5-arg, inplace mat-vec mul" begin
         y1 = rand(n)
         y2 = copy(y1)
-        bmul!(y1, csrA, x, 0.5, 0.3) ≈ SparseArrays.mul!(y2, cscA, x, 0.5, 0.3)
+        @test bmul!(y1, csrA, x, 0.5, 0.3) ≈ SparseArrays.mul!(y2, cscA, x, 0.5, 0.3)
 
         y1 = rand(n)
         y2 = copy(y1)
@@ -36,7 +36,7 @@ using Test
 
    @testset "2-arg mat-vec mul" begin
         @test bmul(csrA, x) ≈ cscA*x
-        #@test bmul(csrA, x) ≈ SparseMatricesCSR.:*(csrA, x)
+        @test bmul(csrA, x) ≈ SparseMatricesCSR.:*(csrA, x)
     end
 
 

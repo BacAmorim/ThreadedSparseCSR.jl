@@ -1,41 +1,18 @@
 import Base: *
-import SparseMatricesCSR: mul!
+import LinearAlgebra: mul!
 
-function multithread_mul!()
+function multithread_matmul()
 
-    @eval begin
-
-        function  mul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
-            return csr_bmul!(y, A, x, alpha, beta)
-        end
-
-        function mul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector)
-            return csr_bmul!(y, A, x)
-        end
-
-        function (*)(A::SparseMatrixCSR, x::AbstractVector)
-            return csr_bmul(A, x)
-        end
+    @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
+        return bmul!(y, A, x, alpha, beta)
     end
 
-    println("CSR mat-vec multiplication, mul! and *,  is now multithreaded!")
-
-    return nothing
-
-end
-
-@eval begin
-
-    function  mul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
-        return csr_bmul!(y, A, x, alpha, beta)
+    @eval function  mul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
+        return bmul!(y, A, x)
     end
 
-    function mul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector)
-        return csr_bmul!(y, A, x)
+    @eval function  *(A::SparseMatrixCSR, x::AbstractVector)
+        return bmul(A, x)
     end
 
-    function (*)(A::SparseMatrixCSR, x::AbstractVector)
-        return csr_bmul(A, x)
-    end
-    
 end

@@ -1,7 +1,7 @@
 # Multithreaded multiplication using Polyester.jl @batch
 using SparseMatricesCSR: nzrange
 
-function csr_bmul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
+function bmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector, alpha::Number, beta::Number)
     
     A.n == size(x, 1) || throw(DimensionMismatch())
     A.m == size(y, 1) || throw(DimensionMismatch())
@@ -24,19 +24,17 @@ function csr_bmul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector, alph
 
 end
 
-
-function csr_bmul!(y::AbstractArray, A::SparseMatrixCSR, x::AbstractVector)
+function bmul!(y::AbstractVector, A::SparseMatrixCSR, x::AbstractVector)
     
-    csr_bmul!(y, A, x, true, false)
+    return bmul!(y, A, x, true, false)
 
 end
 
-function csr_bmul(A::SparseMatrixCSR, x::AbstractVector)
+function bmul(A::SparseMatrixCSR, x::AbstractVector)
 
     T = promote_type(eltype(A), eltype(x))
-    m = A.m
-    y = Vector{T}(undef, m)
-
-    csr_bmul!(y, A, x, true, false)
+    y = similar(x, T)
+    
+    return bmul!(y, A, x, true, false)
 
 end
