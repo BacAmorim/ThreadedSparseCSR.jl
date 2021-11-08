@@ -3,7 +3,7 @@ matmul_num_threads = Ref(Threads.nthreads())
 """
     ThreadedSparseCSR.set_num_threads(n::Int)
 
-Sets the number of threads used in sparse csrt matrix - vector multiplication.
+Sets the number of threads used in sparse csr matrix - vector multiplication.
 """
 function set_num_threads(n::Int)
 
@@ -16,7 +16,7 @@ end
 """
     ThreadedSparseCSR.get_num_threads()
 
-Gets the number of threads used in sparse csrt matrix - vector multiplication.
+Gets the number of threads used in sparse csr matrix - vector multiplication.
 """
 function get_num_threads()
 
