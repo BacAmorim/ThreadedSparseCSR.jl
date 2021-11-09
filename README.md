@@ -91,7 +91,7 @@ ThreadedSparseCSR.set_num_threads(4)
 
 Let us compare the performance of multithreaded sparse CSR matrix - vec as implemented in this package, with the non-threaded version and the multithreaded sparse CSC matrix - vec multiplication provided by [MKLSparse.jl](https://github.com/gridap/SparseMatricesCSR.jl) (both for non-transposed and transposed matrix). 
 
-
+![benchmark_csr_matvec.png](https://github.com/BacAmorim/ThreadedSparseCSR.jl/blob/main/benchmark_csr_matvec.png?raw=true)
 
 Code for benchmark:
 ```
