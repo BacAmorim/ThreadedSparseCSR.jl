@@ -9,7 +9,7 @@ using Pkg
 Pkg.add("https://github.com/BacAmorim/ThreadedSparseCSR.jl")
 ```
 
-The CSR matrix format is implemented in the Julia package [SparseMatricesCSR](https://github.com/gridap/SparseMatricesCSR.jl), which must be installed for this package to work.
+The CSR matrix format is implemented in the Julia package [SparseMatricesCSR.jl](https://github.com/gridap/SparseMatricesCSR.jl), which must be installed for this package to work.
 
 To enable multithreaded mat-vec multiplication, Julia must be initialized with threads, eitheir by setting the variable `JULIA_NUM_THREADS` or by inizializing julia as `julia -t n` (to start with `n` threads).
 
