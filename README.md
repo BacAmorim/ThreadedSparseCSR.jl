@@ -173,6 +173,20 @@ tight_layout()
 savefig("benchmark_csr_matvec.png", dpi = 300)
 ```
 
+```
+versioninfo()
+Julia Version 1.6.3
+Commit ae8452a9e0 (2021-09-23 17:34 UTC)
+Platform Info:
+  OS: Linux (x86_64-pc-linux-gnu)
+  CPU: AMD Ryzen 7 PRO 4750G with Radeon Graphics
+  WORD_SIZE: 64
+  LIBM: libopenlibm
+  LLVM: libLLVM-11.0.1 (ORCJIT, znver2)
+Environment:
+  JULIA_NUM_THREADS = 8
+```
+
 # Acknowlegments
 This package was influenced and inspired by:
 - [ThreadedSparseArrays.jl](https://github.com/jagot/ThreadedSparseArrays.jl)
