@@ -2,7 +2,7 @@
 
 Provides a multithreaded version of sparse CSR matrix - vector multiplication in Julia. 
 
-# Instalation
+## Instalation
 This package is not registered. To install it:
 ```
 using Pkg
@@ -11,10 +11,10 @@ Pkg.add("https://github.com/BacAmorim/ThreadedSparseCSR.jl")
 
 The CSR matrix format is implemented in the Julia package [SparseMatricesCSR.jl](https://github.com/gridap/SparseMatricesCSR.jl), which must be installed for this package to work.
 
-To enable multithreaded mat-vec multiplication, Julia must be initialized with threads, eitheir by setting the variable `JULIA_NUM_THREADS` or by inizializing julia as `julia -t n` (to start with `n` threads).
+To enable multithreaded mat-vec multiplication, Julia must be initialized with threads, eitheir by setting the variable `JULIA_NUM_THREADS` or by initializing julia as `julia -t n` (to start with `n` threads).
 
-# Functionality
-This packahe implements a multithreaded version of sparse matrix CSR - vector multiplication in Julia. 
+## Functionality
+This package implements a multithreaded version of sparse matrix CSR - vector multiplication in Julia. 
 
 The package exports the functions:
 - `tmul!(y, A, x, [alpha], [beta])`, 5 argument (`y = alpha*A*x +beta*y `) and 3 argument (`y = A*x`) in-place multithreaded versions of `mul!`, using `Base.Threads` threading (using `@spawn`)
@@ -44,8 +44,9 @@ The number of threads that is being used is obtained via:
 ```
 ThreadedSparseCSR.get_num_threads()
 ```
+By default, `ThreadedSparseCSR.get_num_threads()==Threads.nthreads()`.
 
-# Example Usage
+## Example Usage
 ```
 using SparseArrays, SparseMatricesCSR, ThreadedSparseCSR
 using BenchmarkTools
@@ -87,7 +88,7 @@ ThreadedSparseCSR.set_num_threads(4)
 
 ```
 
-# Benchmarks
+## Benchmarks
 
 Let us compare the performance of multithreaded sparse CSR matrix - vec as implemented in this package, with the non-threaded version and the multithreaded sparse CSC matrix - vec multiplication provided by [MKLSparse.jl](https://github.com/gridap/SparseMatricesCSR.jl) (both for non-transposed and transposed matrix). 
 
@@ -187,7 +188,7 @@ Environment:
   JULIA_NUM_THREADS = 8
 ```
 
-# Acknowlegments
+## Acknowlegments
 This package was influenced and inspired by:
 - [ThreadedSparseArrays.jl](https://github.com/jagot/ThreadedSparseArrays.jl)
 - [SparseMatricesCSR.jl](https://github.com/gridap/SparseMatricesCSR.jl)
