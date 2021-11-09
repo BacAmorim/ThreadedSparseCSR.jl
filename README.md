@@ -26,15 +26,15 @@ It is possible to overwrite the function `*` and `mul!` by their multithreaded v
 ```
 ThreadedSparseCSR.multithread_matmul(PolyesterThreads())
 ```
-which overwrites `*` and `mul!` by `bmul` and `bmul`, respectivelly;
+which overwrites `*` and `mul!` by `bmul` and `bmul!`, respectivelly;
 ```
 ThreadedSparseCSR.multithread_matmul(BaseThreads())
 ```
-which overwrites `*` and `mul!` by `tmul` and `tmul`, respectivelly;
+which overwrites `*` and `mul!` by `tmul` and `tmul!`, respectivelly;
 ```
 ThreadedSparseCSR.multithread_matmul()
 ```
-by default, overwrites `*` and `mul!` by `bmul` and `bmul`, respectivelly.
+by default, overwrites `*` and `mul!` by `bmul` and `bmul!`, respectivelly.
 
 It is also possible to change the number of threads that are used, using the function
 ```
