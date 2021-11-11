@@ -3,12 +3,15 @@
 Provides a multithreaded version of sparse CSR matrix - vector multiplication in Julia. 
 
 ## Instalation
-This package is not registered. To install it:
+To install this package:
 ```
 using Pkg
-Pkg.add("https://github.com/BacAmorim/ThreadedSparseCSR.jl")
+Pkg.add("ThreadedSparseCSR")
 ```
-
+or
+```
+] add ThreadedSparseCSR
+```
 The CSR matrix format is implemented in the Julia package [SparseMatricesCSR.jl](https://github.com/gridap/SparseMatricesCSR.jl), which must be installed for this package to work.
 
 To enable multithreaded mat-vec multiplication, Julia must be initialized with threads, eitheir by setting the variable `JULIA_NUM_THREADS` or by initializing julia as `julia -t n` (to start with `n` threads).
