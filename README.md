@@ -25,6 +25,22 @@ The package exports the functions:
 - `bmul!(y, A, x, [alpha], [beta])`, 5 argument (`y = alpha*A*x +beta*y `) and 3 argument (`y = A*x`) in-place multithreaded versions of `mul!`, using [Polyester.jl](https://github.com/JuliaSIMD/Polyester.jl) threading (using `@batch`)
 - `bmul(A, x)`, multithreaded version of `A*x`, using [Polyester.jl](https://github.com/JuliaSIMD/Polyester.jl) threading (using `@batch`)
 
+The number of Julia threads that are used for sparse mat-vec multiplication is set by doing:
+```
+ThreadedSparseCSR.set_num_threads(4)
+```
+mat-vec multiplication will now use 4 threads.
+The number of threads that is being used is obtained via:
+```
+ThreadedSparseCSR.get_num_threads()
+```
+To use all available threads, one should set 
+```
+ThreadedSparseCSR.set_num_threads(Threads.nthreads())`
+```
+(N.B.: in the future, this will made default. But at the present, `ThreadedSparseCSR.get_num_threads()` defaults to the number of julia threads at the moment the package is first precompiled.)
+
+
 It is possible to overwrite the function `*` and `mul!` by their multithreaded versions. This is done using the function:
 ```
 ThreadedSparseCSR.multithread_matmul(PolyesterThreads())
@@ -38,21 +54,6 @@ which overwrites `*` and `mul!` by `tmul` and `tmul!`, respectivelly;
 ThreadedSparseCSR.multithread_matmul()
 ```
 by default, overwrites `*` and `mul!` by `bmul` and `bmul!`, respectivelly.
-
-It is also possible to set the number of threads that are used. By doing:
-```
-ThreadedSparseCSR.set_num_threads(4)
-```
-mat-vec multiplication will now use 4 threads.
-The number of threads that is being used is obtained via:
-```
-ThreadedSparseCSR.get_num_threads()
-```
-To use all available threads, one should do after importing the package: 
-```
-ThreadedSparseCSR.set_num_threads(Threads.nthreads())`
-```
-(N.B.: in the future, this will made default. But at the present, `ThreadedSparseCSR.get_num_threads()` gets set to the number of julia threads, when the package is first precompiled.)
 
 ## Example Usage
 ```
