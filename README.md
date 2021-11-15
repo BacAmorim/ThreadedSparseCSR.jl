@@ -39,19 +39,27 @@ ThreadedSparseCSR.multithread_matmul()
 ```
 by default, overwrites `*` and `mul!` by `bmul` and `bmul!`, respectivelly.
 
-It is also possible to change the number of threads that are used, using the function
+It is also possible to set the number of threads that are used. By doing:
 ```
 ThreadedSparseCSR.set_num_threads(4)
 ```
+mat-vec multiplication will now use 4 threads.
 The number of threads that is being used is obtained via:
 ```
 ThreadedSparseCSR.get_num_threads()
 ```
-By default, `ThreadedSparseCSR.get_num_threads()==Threads.nthreads()`.
+To use all available threads, one should do after importing the package: 
+```
+ThreadedSparseCSR.set_num_threads(Threads.nthreads())`
+```
+(N.B.: in the future, this will made default. But at the present, `ThreadedSparseCSR.get_num_threads()` gets set to the number of julia threads, when the package is first precompiled.)
 
 ## Example Usage
 ```
-using SparseArrays, SparseMatricesCSR, ThreadedSparseCSR
+using ThreadedSparseCSR
+ThreadedSparseCSR.set_num_threads(Threads.nthreads()) #use all the available Julia threads in the mat-vec mul
+
+using SparseArrays, SparseMatricesCSR
 using BenchmarkTools
 
 m, n = 1_000, 1_000
@@ -102,6 +110,8 @@ Code for benchmark:
 using LinearAlgebra, SparseArrays, SparseMatricesCSR, ThreadedSparseCSR
 using MKLSparse # to enable multithreaded Sparse CSC Matrix-Vec multiplication
 using BenchmarkTools, PyPlot
+
+ThreadedSparseCSR.set_num_threads(Threads.nthreads()) #use all the available Julia threads in the mat-vec mul
 
 function benchmark_csr_mv(sizes, densities)
     
