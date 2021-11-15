@@ -1,4 +1,4 @@
-matmul_num_threads = Ref(Threads.nthreads())
+matmul_num_threads = Ref(1)
 
 """
     ThreadedSparseCSR.set_num_threads(n::Int)
@@ -22,4 +22,9 @@ function get_num_threads()
 
     return matmul_num_threads[]
     
+end
+
+
+function __init__()
+    set_num_threads(Threads.nthreads())
 end
