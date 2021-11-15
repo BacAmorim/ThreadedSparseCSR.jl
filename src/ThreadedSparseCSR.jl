@@ -23,5 +23,6 @@ include("threads_matmul.jl")
 include("batch_matmul.jl")
 include("multithread_matmul.jl")
 include("set_num_threads.jl")
+include("init_package.jl")
 
 end
