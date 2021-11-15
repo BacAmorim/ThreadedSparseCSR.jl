@@ -25,7 +25,7 @@ The package exports the functions:
 - `bmul!(y, A, x, [alpha], [beta])`, 5 argument (`y = alpha*A*x +beta*y `) and 3 argument (`y = A*x`) in-place multithreaded versions of `mul!`, using [Polyester.jl](https://github.com/JuliaSIMD/Polyester.jl) threading (using `@batch`)
 - `bmul(A, x)`, multithreaded version of `A*x`, using [Polyester.jl](https://github.com/JuliaSIMD/Polyester.jl) threading (using `@batch`)
 
-The number of Julia threads that are is used for sparse mat-vec multiplication can be checked via
+The number of Julia threads that are used for sparse mat-vec multiplication can be checked via
 ```
 ThreadedSparseCSR.get_num_threads()
 ```
@@ -37,7 +37,7 @@ ThreadedSparseCSR.get_num_threads() == Threads.nthreads() # true
 ```
 The number of threads can be changed by using the function:
 ```
-ThreadedSparseCSR.get_num_threads(4) # 4 threads will be used now
+ThreadedSparseCSR.set_num_threads(4) # 4 threads will be used now
 ```
 
 
