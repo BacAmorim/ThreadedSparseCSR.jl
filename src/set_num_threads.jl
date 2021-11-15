@@ -23,8 +23,3 @@ function get_num_threads()
     return matmul_num_threads[]
     
 end
-
-
-function __init__()
-    set_num_threads(Threads.nthreads())
-end
